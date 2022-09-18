@@ -45,21 +45,6 @@
                 android:text="TextView"
                 android:textSize="20sp" />
 
-            <CheckBox
-                android:id="@+id/cbLike"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Нравится"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/etComment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:singleLine="false"
-                android:inputType="text|textMultiLine|textCapSentences"
-                android:hint="Комментарий к фильму"/>
         </LinearLayout>
     </ScrollView>
 

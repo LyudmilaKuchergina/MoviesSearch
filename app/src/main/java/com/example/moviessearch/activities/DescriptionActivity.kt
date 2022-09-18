@@ -1,14 +1,10 @@
-package com.example.moviessearch
+package com.example.moviessearch.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import java.util.ArrayList
+import com.example.moviessearch.R
 
 private const val TAG = "DescriptionActivity"
 
@@ -23,7 +19,5 @@ class DescriptionActivity : AppCompatActivity() {
         imMovie.setImageResource(intent.getIntExtra("extra_movie", 0))
         tvTitle.setText(intent.getIntExtra("extra_title",0))
         tvDescription.setText(intent.getIntExtra("extra_description",0))
-
-        //setResult(RESULT_OK, Intent().putExtra(MainActivity.EXTRA_LIKE,findViewById<CheckBox>(R.id.cbLike).isChecked.toString()))
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_name">Пригласить друга</string>
+    <string name="app_name">Поиск фильмов</string>
+    <string name="button_name_favorites">Список избранных</string>
+    <string name="title_favorite">Избранные фильмы</string>
+    <string name="button_delete">Удалить</string>
+    <string name="question_exit">Вы хотите выйти из приложения?</string>
+    <string name="confirm">Пожалуйста подтвердите.</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+</resources>

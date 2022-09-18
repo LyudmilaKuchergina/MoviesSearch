@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoviesSearch">
         <activity
-            android:name=".DescriptionActivity"
+            android:name=".activities.FavoritesActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.DescriptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
