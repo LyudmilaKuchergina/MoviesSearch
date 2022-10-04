@@ -1,7 +1,8 @@
 package com.example.moviessearch
 
 object Repository {
-    val movies = listOf(
+
+    private val movies = mutableListOf(
         Movie(
             0,
             R.drawable.klon,
@@ -58,21 +59,39 @@ object Repository {
         )
     )
 
-    private var listFavorite = mutableListOf<Int>()
+    fun getMovies(): List<Movie> {
+        return ArrayList(movies)
+    }
+
+    fun setPressed(num: Int) {
+        movies[num].title_pressed = true
+    }
 
     fun delFavorite(num: Int){
-        listFavorite.remove(num)
+        movies[num] = movies[num].copy(isFavorite = false)
+        listener?.notify(num)
     }
 
     fun addFavorite(num: Int){
-        listFavorite.add(num)
+        movies[num] = movies[num].copy(isFavorite = true)
+        listener?.notify(num)
     }
 
     fun isFavorite(num: Int): Boolean {
-        return listFavorite.contains(num)
+        return movies[num].isFavorite
     }
 
     fun getFavorites(): List<Movie> {
-        return movies.filter { it.id in listFavorite }
+        return movies.filter { it.isFavorite }
+    }
+
+    private var listener: NotifyListener? = null
+
+    fun setNotifyListner(listener: NotifyListener) {
+        this.listener = listener
+    }
+
+    interface NotifyListener {
+        fun notify(num: Int)
     }
 }
