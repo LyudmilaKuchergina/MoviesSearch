@@ -28,4 +28,7 @@
     <string name="superpitomcy_content" translatable="false">Мультфильм Суперпитомцы расскажет о домашних питомцах Бэтмена и Супермена, которые ничем не хуже своих именитых хозяев - супергероев могут в одиночку спасти весь мир.</string>
     <string name="taynaamuleta_content" translatable="false">Фильм Тайна амулета от киностудии Сияна расскажет о том, как одно весьма древнее и мифическое создание отправляет трёх друзей в их детские облики, дабы те открыли настоящую дорогу к собственной мечте.</string>
     <string name="vivarium_content" translatable="false">Фильм Вивариум расскажет о молодой влюблённой паре, попадающей в настоящий невероятный лабиринт сюрреализма и параллельных измерений в поисках нового жилья.</string>
+    <string name="item_movies">Movies</string>
+    <string name="item_favorites">Favorites</string>
+    <string name="item_description">Description</string>
 </resources>

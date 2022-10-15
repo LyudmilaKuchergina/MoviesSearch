@@ -9,4 +9,7 @@
     <string name="confirm">Пожалуйста подтвердите.</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="item_movies">Фильмы</string>
+    <string name="item_favorites">Избранные</string>
+    <string name="item_description">Описание</string>
 </resources>

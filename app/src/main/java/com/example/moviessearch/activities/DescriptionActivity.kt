@@ -11,7 +11,7 @@ private const val TAG = "DescriptionActivity"
 class DescriptionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_description)
+        setContentView(R.layout.fragment_description)
 
         val imMovie = findViewById<ImageView>(R.id.imMovie)
         val tvTitle = findViewById<TextView>(R.id.tvTitle)
