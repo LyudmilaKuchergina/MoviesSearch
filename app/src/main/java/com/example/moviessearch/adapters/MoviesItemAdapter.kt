@@ -1,6 +1,7 @@
 package com.example.moviessearch.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -38,6 +39,7 @@ class MoviesItemAdapter(
 
     interface MovieClickListener {
         fun onMovieClick(moviesItem: Movie, position: Int)
+        fun onFavoriteClick(position: Int, view: View)
     }
 
     private class DiffCallback(

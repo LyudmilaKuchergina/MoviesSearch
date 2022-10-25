@@ -18,7 +18,11 @@ class FavoritesItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
         imMovieItem.setImageResource(item.image_id)
 
         bDelete.setOnClickListener {
-            listener.onDeleteClick(item.id)
+            listener.onDeleteClick(item.id, itemView)
+        }
+
+        imMovieItem.setOnClickListener {
+            listener.onImageClick(item.id)
         }
     }
 }

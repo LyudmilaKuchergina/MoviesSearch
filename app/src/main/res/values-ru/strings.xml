@@ -11,5 +11,7 @@
     <string name="no">Нет</string>
     <string name="item_movies">Фильмы</string>
     <string name="item_favorites">Избранные</string>
-    <string name="item_description">Описание</string>
+    <string name="item_invite">Пригласить друга</string>
+    <string name="notify_delete">Фильм удален из избранных.</string>
+    <string name="notify_add">Фильм добавлен в избранные.</string>
 </resources>

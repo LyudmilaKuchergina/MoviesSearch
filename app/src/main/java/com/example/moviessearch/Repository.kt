@@ -63,6 +63,10 @@ object Repository {
         return ArrayList(movies)
     }
 
+    fun getMovie(num: Int): Movie {
+        return movies[num]
+    }
+
     fun setPressed(num: Int) {
         movies[num].title_pressed = true
     }

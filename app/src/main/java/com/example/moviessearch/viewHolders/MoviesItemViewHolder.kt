@@ -1,6 +1,5 @@
 package com.example.moviessearch.viewHolders
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,7 +15,6 @@ class MoviesItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val imFavoriteItem: ImageView = itemView.findViewById(R.id.imFavorite)
 
     fun bind(item: Movie, listener: MoviesItemAdapter.MovieClickListener) {
-        Log.d("TAG", "bind $item")
         tvTitleItem.setText(item.title_id)
         imMovieItem.setImageResource(item.image_id)
 
@@ -38,6 +36,7 @@ class MoviesItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             }
             else {
                 Repository.addFavorite(item.id)
+                listener.onFavoriteClick(adapterPosition, itemView)
             }
         }
     }
