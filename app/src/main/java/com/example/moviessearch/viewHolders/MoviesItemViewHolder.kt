@@ -3,6 +3,7 @@ package com.example.moviessearch.viewHolders
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearch.Movie
 import com.example.moviessearch.R
@@ -18,16 +19,16 @@ class MoviesItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvTitleItem.setText(item.title_id)
         imMovieItem.setImageResource(item.image_id)
 
-        val color = if (item.title_pressed) itemView.context.resources.getColor(R.color.pink_2)
-        else itemView.context.resources.getColor(R.color.purple_700)
+        val color = if (item.title_pressed) ContextCompat.getColor(itemView.context,R.color.pink_2)
+        else ContextCompat.getColor(itemView.context, R.color.purple_700)
         tvTitleItem.setTextColor(color)
 
         if (Repository.isFavorite(item.id)) imFavoriteItem.setImageResource(R.drawable.ic_favorite_red)
         else imFavoriteItem.setImageResource(R.drawable.ic_favorite)
 
         imMovieItem.setOnClickListener {
-            Repository.setPressed(position)
-            tvTitleItem.setTextColor(itemView.context.resources.getColor(R.color.pink_2))
+            Repository.setPressed(adapterPosition)
+            tvTitleItem.setTextColor(ContextCompat.getColor(itemView.context,R.color.pink_2))
             listener.onMovieClick(item, adapterPosition)
         }
         imFavoriteItem.setOnClickListener {

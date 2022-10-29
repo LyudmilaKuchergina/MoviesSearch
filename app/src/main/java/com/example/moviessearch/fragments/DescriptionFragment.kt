@@ -18,8 +18,8 @@ class DescriptionFragment: Fragment(R.layout.fragment_description){
         val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
         val tvDescription = view.findViewById<TextView>(R.id.tvDescription)
         imMovie.setImageResource(Repository.getMovie(value).image_id)
-        tvTitle.setText(resources.getText(Repository.getMovie(value).title_id))
-        tvDescription.setText(resources.getText(Repository.getMovie(value).description_id))
+        tvTitle.setText(getText(Repository.getMovie(value).title_id))
+        tvDescription.setText(getText(Repository.getMovie(value).description_id))
     }
 
     companion object {

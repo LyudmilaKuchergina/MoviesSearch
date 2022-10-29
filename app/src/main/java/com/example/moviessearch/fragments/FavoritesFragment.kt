@@ -24,20 +24,23 @@ class FavoritesFragment: Fragment(), FavoritesItemAdapter.FavoritesClickListener
     ): View? {
         val view = inflater.inflate(R.layout.fragment_favorites,container, false)
 
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val rcView = view.findViewById<RecyclerView>(R.id.rvFavorites)
         rcView.hasFixedSize()
         rcView.layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.list_columns))
 
         rcView.adapter = adapter
-
-        return view
     }
 
     override fun onDeleteClick(id: Int, view: View) {
-        val snackbar = Snackbar.make(view, resources.getString(R.string.notify_delete),Snackbar.LENGTH_LONG)
+        val snackbar = Snackbar.make(view, getString(R.string.notify_delete),Snackbar.LENGTH_LONG)
         snackbar.show()
         Repository.delFavorite(id)
-        adapter.notifyDataSetChanged()
+        adapter.notifyItemChanged(id)
     }
 
     override fun onImageClick(id: Int) {

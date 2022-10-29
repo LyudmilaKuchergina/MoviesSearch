@@ -25,7 +25,7 @@ class MoviesFragment: Fragment(), Repository.NotifyListener {
                 ?.commit()
         }
         override fun onFavoriteClick(position: Int, view: View) {
-            val snackbar = Snackbar.make(view, resources.getString(R.string.notify_add), Snackbar.LENGTH_LONG)
+            val snackbar = Snackbar.make(view, getString(R.string.notify_add), Snackbar.LENGTH_LONG)
             snackbar.show()
         }
     })
@@ -36,15 +36,6 @@ class MoviesFragment: Fragment(), Repository.NotifyListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movies, container, false)
-
-        val rcView = view.findViewById<RecyclerView>(R.id.rcView)
-        rcView.hasFixedSize()
-        rcView.layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.list_columns))
-
-        rcView.adapter = adapter
-        Repository.setNotifyListner(this)
-        rcView.itemAnimator = DefaultItemAnimator()
-
         return view
     }
 
@@ -55,6 +46,15 @@ class MoviesFragment: Fragment(), Repository.NotifyListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter.setItems(Repository.getMovies())
+
+        val rcView = view.findViewById<RecyclerView>(R.id.rcView)
+        rcView.hasFixedSize()
+        rcView.layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.list_columns))
+
+        rcView.adapter = adapter
+        Repository.setNotifyListner(this)
+        rcView.itemAnimator = DefaultItemAnimator()
+
     }
 
 }

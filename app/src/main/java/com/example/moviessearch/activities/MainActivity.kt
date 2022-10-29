@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity()
 
         val navigate: BottomNavigationView = findViewById(R.id.bnView)
         moviesFragment = MoviesFragment()
-        navigate.setOnNavigationItemSelectedListener {
+        navigate.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.item_movies -> replaceFragment(MoviesFragment())
                 R.id.item_favorites -> replaceFragment(FavoritesFragment())
