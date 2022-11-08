@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity()
 
     fun inviteFriend(){
         val intent = Intent(Intent.ACTION_SEND).setType("text/plain")
-            .putExtra(Intent.EXTRA_TEXT,"Привет. Не желаешь посмотреть фильм?")
+            .putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.question_invite))
         startActivity(intent)
     }
 

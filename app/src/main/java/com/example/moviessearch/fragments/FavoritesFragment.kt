@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviessearch.viewModel.MoviesViewModelList
 import com.example.moviessearch.R
 import com.example.moviessearch.Repository
 import com.example.moviessearch.adapters.FavoritesItemAdapter
@@ -14,6 +16,8 @@ import com.google.android.material.snackbar.Snackbar
 
 
 class FavoritesFragment: Fragment(), FavoritesItemAdapter.FavoritesClickListener{
+
+    private val viewModel : MoviesViewModelList by activityViewModels()
 
     private val adapter = FavoritesItemAdapter(this)
 
@@ -37,7 +41,7 @@ class FavoritesFragment: Fragment(), FavoritesItemAdapter.FavoritesClickListener
     }
 
     override fun onDeleteClick(id: Int, view: View) {
-        val snackbar = Snackbar.make(view, getString(R.string.notify_delete),Snackbar.LENGTH_LONG)
+        val snackbar = Snackbar.make(view, getString(R.string.notify_delete),Snackbar.LENGTH_SHORT)
         snackbar.show()
         Repository.delFavorite(id)
         adapter.notifyItemChanged(id)

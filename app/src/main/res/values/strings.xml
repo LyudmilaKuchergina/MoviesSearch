@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Movies search</string>
     <string name="button_name">To invite a friend</string>
+    <string name="question_invite">Hello. Would you like to watch a movie?</string>
     <string name="button_name_favorites">Open favorites</string>
     <string name="title_favorite">Favorite movies</string>
     <string name="button_delete">Delete</string>

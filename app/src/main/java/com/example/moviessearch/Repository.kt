@@ -1,5 +1,8 @@
 package com.example.moviessearch
 
+import com.example.moviessearch.fragments.MoviesFragment
+import kotlin.properties.ReadOnlyProperty
+
 object Repository {
 
     private val movies = mutableListOf(
@@ -91,7 +94,7 @@ object Repository {
 
     private var listener: NotifyListener? = null
 
-    fun setNotifyListner(listener: NotifyListener) {
+    fun setNotifyListener(listener: NotifyListener) {
         this.listener = listener
     }
 
