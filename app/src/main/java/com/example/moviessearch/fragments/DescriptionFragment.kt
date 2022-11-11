@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.moviessearch.R
 import com.example.moviessearch.Repository
 import com.example.moviessearch.viewModel.MoviesViewModelDescription
@@ -13,25 +14,26 @@ import com.example.moviessearch.viewModel.MoviesViewModelDescription
 
 class DescriptionFragment: Fragment(R.layout.fragment_description){
 
-    lateinit var viewModel: MoviesViewModelDescription
+    lateinit var descriptionViewModel: MoviesViewModelDescription
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(MoviesViewModelDescription::class.java)
+        descriptionViewModel = ViewModelProvider(this).get(MoviesViewModelDescription::class.java)
 
         val value = requireArguments().getInt(VALUE_ARG)
 
         val imMovie = view.findViewById<ImageView>(R.id.imMovie)
         val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
         val tvDescription = view.findViewById<TextView>(R.id.tvDescription)
-       //val id = intent.getIntExtra("id",1)
-        viewModel.liveData.observe(viewLifecycleOwner, {
-            imMovie.setImageResource(Repository.getMovie(value).image_id)
-            tvTitle.setText(getText(Repository.getMovie(value).title_id))
-            tvDescription.setText(getText(Repository.getMovie(value).description_id))
+        descriptionViewModel.descriptionLiveData.observe(viewLifecycleOwner, {
+            Glide.with(imMovie)
+                .load(it.url)
+                .into(imMovie)
+            tvTitle.text = it.title
+            tvDescription.text = it.description
         })
-        viewModel.getMovie(value)
+        descriptionViewModel.getMovie(value)
     }
 
     companion object {

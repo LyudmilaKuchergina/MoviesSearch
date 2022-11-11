@@ -1,21 +1,10 @@
 package com.example.moviessearch
 
-import com.google.gson.annotations.SerializedName
-
 data class Movies(
-    @SerializedName( "id")
-    val title_id: Int,
-
-    @SerializedName("name")
-    val title: String,
-
-    @SerializedName("poster")
-    val image: Poster
+    val id:Int,
+    val url:String,
+    val title:String,
+    val description:String,
+    var title_pressed: Boolean = false,
+    var isFavorite: Boolean = false
 )
-
-data class Poster(
-    @SerializedName( "url")
-    val url: String
-)
-
-

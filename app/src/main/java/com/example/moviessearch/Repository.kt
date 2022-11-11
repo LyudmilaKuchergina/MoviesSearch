@@ -1,95 +1,93 @@
 package com.example.moviessearch
 
-import com.example.moviessearch.fragments.MoviesFragment
-import kotlin.properties.ReadOnlyProperty
+import android.util.Log
+import com.example.moviessearch.api.MoviesApi
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 object Repository {
 
-    private val movies = mutableListOf(
-        Movie(
-            0,
-            R.drawable.klon,
-            R.string.klon,
-            R.string.klon_content
-        ),
-        Movie(
-            1,
-            R.drawable.morbius,
-            R.string.morbius,
-            R.string.morbius_content
-        ),
-        Movie(
-            2,
-            R.drawable.obratimayarealnost,
-            R.string.obratimayarealnost,
-            R.string.obratimayarealnost_content
-        ),
-        Movie(
-            3,
-            R.drawable.padenieluny,
-            R.string.padenieluny,
-            R.string.padenieluny_content
-        ),
-        Movie(
-            4,
-            R.drawable.rodmugskoy,
-            R.string.rodmugskoy,
-            R.string.rodmugskoy_content
-        ),
-        Movie(
-            5,
-            R.drawable.sonic2,
-            R.string.sonic2,
-            R.string.sonic2_content
-        ),
-        Movie(
-            6,
-            R.drawable.superpitomcy,
-            R.string.superpitomcy,
-            R.string.superpitomcy_content
-        ),
-        Movie(
-            7,
-            R.drawable.taynaamuleta,
-            R.string.taynaamuleta,
-            R.string.taynaamuleta_content
-        ),
-        Movie(
-            8,
-            R.drawable.vivarium,
-            R.string.vivarium,
-            R.string.vivarium_content
-        )
-    )
+    private var movies: MutableList<Movies>? = null
+    private var storedYear: String = ""
 
-    fun getMovies(): List<Movie> {
-        return ArrayList(movies)
+    private fun listTransformation(movies: List<MoviesJson>): List<Movies> {
+        return movies.mapIndexed { index, it ->
+            Movies(
+                id = index,
+                url = it.image?.url.orEmpty(),
+                title = it.title.orEmpty(),
+                description = it.description.orEmpty()
+            )
+        }
     }
 
-    fun getMovie(num: Int): Movie {
-        return movies[num]
+    fun getMovies(year: String, onReady: (List<Movies>) -> Unit) {
+
+        if (storedYear == year && movies != null) {
+            onReady(movies!!)
+        }
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.kinopoisk.dev/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val moviesApi = retrofit.create(MoviesApi::class.java)
+
+        moviesApi.getMovies(year).enqueue(object : Callback<MoviesList> {
+            override fun onResponse(call: Call<MoviesList>, response: Response<MoviesList>) {
+                val json = response.body()
+                val moviesResponse = json?.movies
+                Log.d("TAG", "movies(${moviesResponse?.size}) = $moviesResponse")
+                moviesResponse?.run {
+                    val result = listTransformation(this.filter {
+                        it.title != null && it.image?.url != null && it.description != null
+                    })
+                    movies = result.toMutableList()
+                    storedYear = year
+                    Log.d("TAG", "movies result size: ${result.size}")
+                    onReady(result)
+                }
+            }
+
+            override fun onFailure(call: Call<MoviesList>, t: Throwable) {
+                Log.d("TAG", "error = ${t.stackTrace}")
+                t.printStackTrace()
+            }
+        })
+    }
+
+    fun getStoredMovie(num: Int): Movies? {
+        return movies?.get(num)
     }
 
     fun setPressed(num: Int) {
-        movies[num].title_pressed = true
+        movies?.get(num)?.title_pressed = true
     }
 
-    fun delFavorite(num: Int){
-        movies[num] = movies[num].copy(isFavorite = false)
+    fun delFavorite(num: Int) {
+        movies?.run {
+            this[num] = this[num].copy(isFavorite = false)
+        }
         listener?.notify(num)
     }
 
-    fun addFavorite(num: Int){
-        movies[num] = movies[num].copy(isFavorite = true)
+    fun addFavorite(num: Int) {
+        movies?.run {
+            this[num] = this[num].copy(isFavorite = true)
+        }
         listener?.notify(num)
     }
 
     fun isFavorite(num: Int): Boolean {
-        return movies[num].isFavorite
+        return movies?.get(num)?.isFavorite ?: false
     }
 
-    fun getFavorites(): List<Movie> {
-        return movies.filter { it.isFavorite }
+    fun getFavorites(): List<Movies> {
+        return movies?.filter { it.isFavorite } ?: emptyList()
     }
 
     private var listener: NotifyListener? = null

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearch.Movies
 import com.example.moviessearch.viewModel.MoviesViewModelList
 import com.example.moviessearch.R
+import com.example.moviessearch.Repository
 import com.example.moviessearch.adapters.MoviesItemAdapter
 import com.google.android.material.snackbar.Snackbar
 
@@ -55,7 +56,7 @@ class MoviesFragment: Fragment() {//, Repository.NotifyListener {
         rcView.layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.list_columns))
 
         rcView.adapter = adapter
-        //Repository.setNotifyListener(this)
+       //Repository.setNotifyListener(this)
         rcView.itemAnimator = DefaultItemAnimator()
 
         viewModel = ViewModelProvider(this).get(MoviesViewModelList::class.java)

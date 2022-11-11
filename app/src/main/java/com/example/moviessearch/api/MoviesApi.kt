@@ -3,7 +3,6 @@ package com.example.moviessearch.api
 import com.example.moviessearch.MoviesList
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -14,7 +13,8 @@ interface MoviesApi {
     @GET("movie")
     fun getMovies(
         @Query("search")  search: String,
-        @Query("field")  field: String = "year"  ,
+        @Query("field")  field: String = "year",
         @Query("token")  token: String = TOKEN,
+        @Query("limit")  limit: String = "20",
     ): Call<MoviesList>
 }

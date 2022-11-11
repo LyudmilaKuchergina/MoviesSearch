@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearch.Movies
 import com.example.moviessearch.R
+import com.example.moviessearch.Repository
 import com.example.moviessearch.viewHolders.MoviesItemViewHolder
 
 class MoviesItemAdapter(
@@ -33,7 +34,7 @@ class MoviesItemAdapter(
         notifyDataSetChanged()
     }
 
-//    fun setItems(items: List<Movie>) {
+//    fun setItems(items: MutableList<Movies>) {
 //        val diffCallback = DiffCallback(movies, items)
 //        val diffResult = DiffUtil.calculateDiff(diffCallback)
 //
