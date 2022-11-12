@@ -7,6 +7,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.system.exitProcess
 
 object Repository {
 
@@ -28,43 +29,44 @@ object Repository {
 
         if (storedYear == year && movies != null) {
             onReady(movies!!)
-        }
+        } else {
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.kinopoisk.dev/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://api.kinopoisk.dev/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
 
-        val moviesApi = retrofit.create(MoviesApi::class.java)
+            val moviesApi = retrofit.create(MoviesApi::class.java)
 
-        moviesApi.getMovies(year).enqueue(object : Callback<MoviesList> {
-            override fun onResponse(call: Call<MoviesList>, response: Response<MoviesList>) {
-                val json = response.body()
-                val moviesResponse = json?.movies
-                Log.d("TAG", "movies(${moviesResponse?.size}) = $moviesResponse")
-                moviesResponse?.run {
-                    val result = listTransformation(this.filter {
-                        it.title != null && it.image?.url != null && it.description != null
-                    })
-                    movies = result.toMutableList()
-                    storedYear = year
-                    Log.d("TAG", "movies result size: ${result.size}")
-                    onReady(result)
+            moviesApi.getMovies(year).enqueue(object : Callback<MoviesList> {
+                override fun onResponse(call: Call<MoviesList>, response: Response<MoviesList>) {
+                    val json = response.body()
+                    val moviesResponse = json?.movies
+                    Log.d("TAG", "movies(${moviesResponse?.size}) = $moviesResponse")
+                    moviesResponse?.run {
+                        val result = listTransformation(this.filter {
+                            it.title != null && it.image?.url != null && it.description != null
+                        })
+                        movies = result.toMutableList()
+                        storedYear = year
+                        Log.d("TAG", "movies result size: ${result.size}")
+                        onReady(result)
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<MoviesList>, t: Throwable) {
-                Log.d("TAG", "error = ${t.stackTrace}")
-                t.printStackTrace()
-            }
-        })
+                override fun onFailure(call: Call<MoviesList>, t: Throwable) {
+                    Log.d("TAG", "error = ${t.stackTrace}")
+                    t.printStackTrace()
+                }
+            })
+        }
     }
 
     fun getStoredMovie(num: Int): Movies? {
         return movies?.get(num)
     }
 
-    fun setPressed(num: Int) {
+     fun setPressed(num: Int) {
         movies?.get(num)?.title_pressed = true
     }
 

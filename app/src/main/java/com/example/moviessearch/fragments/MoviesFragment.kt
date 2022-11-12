@@ -16,23 +16,11 @@ import com.example.moviessearch.Repository
 import com.example.moviessearch.adapters.MoviesItemAdapter
 import com.google.android.material.snackbar.Snackbar
 
-class MoviesFragment: Fragment() {//, Repository.NotifyListener {
+class MoviesFragment: Fragment(),MoviesItemAdapter.MovieClickListener {//, Repository.NotifyListener {
 
     lateinit var viewModel : MoviesViewModelList
 
-    private val adapter = MoviesItemAdapter(object : MoviesItemAdapter.MovieClickListener {
-        override fun onMovieClick(moviesItem: Movies, position: Int) {
-            val fragmentManager = getActivity()?.supportFragmentManager
-            val fragmentTransaction = fragmentManager?.beginTransaction()
-            fragmentTransaction?.add(R.id.container, DescriptionFragment.newInstance(position))
-                ?.addToBackStack(null)
-                ?.commit()
-        }
-        override fun onFavoriteClick(position: Int, view: View) {
-            val snackbar = Snackbar.make(view, getString(R.string.notify_add), Snackbar.LENGTH_SHORT)
-            snackbar.show()
-        }
-    })
+    private val adapter = MoviesItemAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +51,19 @@ class MoviesFragment: Fragment() {//, Repository.NotifyListener {
         viewModel.moviesLiveData.observe(viewLifecycleOwner, {
             adapter.refreshList(it)
         })
+    }
 
+    override fun onMovieClick(moviesItem: Movies, position: Int) {
+        val fragmentManager = getActivity()?.supportFragmentManager
+        val fragmentTransaction = fragmentManager?.beginTransaction()
+        fragmentTransaction?.add(R.id.container, DescriptionFragment.newInstance(position))
+            ?.addToBackStack(null)
+            ?.commit()
+    }
+    override fun onFavoriteClick(position: Int, view: View) {
+        adapter.notifyItemChanged(position)
+        val snackbar = Snackbar.make(view, getString(R.string.notify_add), Snackbar.LENGTH_SHORT)
+        snackbar.show()
     }
 
 }

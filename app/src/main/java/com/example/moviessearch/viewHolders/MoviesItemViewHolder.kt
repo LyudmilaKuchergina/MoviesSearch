@@ -43,8 +43,8 @@ class MoviesItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             }
             else {
                 Repository.addFavorite(item.id)
-                listener.onFavoriteClick(adapterPosition, itemView)
             }
+            listener.onFavoriteClick(adapterPosition, itemView)
         }
     }
 }

@@ -13,13 +13,14 @@ import com.example.moviessearch.viewModel.MoviesViewModelList
 import com.example.moviessearch.R
 import com.example.moviessearch.Repository
 import com.example.moviessearch.adapters.FavoritesItemAdapter
+import com.example.moviessearch.viewModel.FavoritesViewModelList
 import com.example.moviessearch.viewModel.MoviesViewModelDescription
 import com.google.android.material.snackbar.Snackbar
 
 
 class FavoritesFragment: Fragment(), FavoritesItemAdapter.FavoritesClickListener{
 
-    lateinit var viewModel : MoviesViewModelList
+    lateinit var viewModel : FavoritesViewModelList
 
     private val adapter = FavoritesItemAdapter(this)
 
@@ -41,8 +42,8 @@ class FavoritesFragment: Fragment(), FavoritesItemAdapter.FavoritesClickListener
 
         rcView.adapter = adapter
 
-        viewModel = ViewModelProvider(this).get(MoviesViewModelList::class.java)
-        viewModel.moviesLiveData.observe(viewLifecycleOwner, {
+        viewModel = ViewModelProvider(this).get(FavoritesViewModelList::class.java)
+        viewModel.favoritesLiveData.observe(viewLifecycleOwner, {
             adapter.refreshList(it)
         })
     }
@@ -50,7 +51,7 @@ class FavoritesFragment: Fragment(), FavoritesItemAdapter.FavoritesClickListener
     override fun onDeleteClick(id: Int, view: View) {
         val snackbar = Snackbar.make(view, getString(R.string.notify_delete),Snackbar.LENGTH_SHORT)
         snackbar.show()
-        //Repository.delFavorite(id)
+        Repository.delFavorite(id)
         adapter.notifyItemChanged(id)
     }
 

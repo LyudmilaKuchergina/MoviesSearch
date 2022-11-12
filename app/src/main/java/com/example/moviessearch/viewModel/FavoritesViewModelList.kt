@@ -5,15 +5,15 @@ import androidx.lifecycle.ViewModel
 import com.example.moviessearch.Movies
 import com.example.moviessearch.Repository
 
-class MoviesViewModelList : ViewModel() {
+class FavoritesViewModelList : ViewModel() {
 
-    val moviesLiveData = MutableLiveData<List<Movies>>()
+    val favoritesLiveData = MutableLiveData<List<Movies>>()
 
     init {
         getValues()
     }
 
-     private fun getValues() {
-        Repository.getMovies(year ="2015", onReady = { moviesLiveData.postValue(it) })
+    private fun getValues() {
+        favoritesLiveData.postValue(Repository.getFavorites())
     }
 }
