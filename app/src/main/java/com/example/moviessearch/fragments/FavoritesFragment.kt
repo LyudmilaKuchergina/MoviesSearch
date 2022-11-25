@@ -5,22 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviessearch.viewModel.MoviesViewModelList
 import com.example.moviessearch.R
 import com.example.moviessearch.Repository
 import com.example.moviessearch.adapters.FavoritesItemAdapter
-import com.example.moviessearch.viewModel.FavoritesViewModelList
-import com.example.moviessearch.viewModel.MoviesViewModelDescription
+import com.example.moviessearch.viewModel.FavoritesListViewModel
 import com.google.android.material.snackbar.Snackbar
 
 
 class FavoritesFragment: Fragment(), FavoritesItemAdapter.FavoritesClickListener{
 
-    lateinit var viewModel : FavoritesViewModelList
+    lateinit var viewModel : FavoritesListViewModel
 
     private val adapter = FavoritesItemAdapter(this)
 
@@ -42,17 +39,17 @@ class FavoritesFragment: Fragment(), FavoritesItemAdapter.FavoritesClickListener
 
         rcView.adapter = adapter
 
-        viewModel = ViewModelProvider(this).get(FavoritesViewModelList::class.java)
+        viewModel = ViewModelProvider(this).get(FavoritesListViewModel::class.java)
         viewModel.favoritesLiveData.observe(viewLifecycleOwner, {
-            adapter.refreshList(it)
+            adapter.setItems(it)
         })
+
     }
 
     override fun onDeleteClick(id: Int, view: View) {
+        viewModel.delFavorite(id)
         val snackbar = Snackbar.make(view, getString(R.string.notify_delete),Snackbar.LENGTH_SHORT)
         snackbar.show()
-        Repository.delFavorite(id)
-        adapter.notifyItemChanged(id)
     }
 
     override fun onImageClick(id: Int) {

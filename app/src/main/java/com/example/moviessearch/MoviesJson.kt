@@ -13,6 +13,9 @@ data class MoviesJson(
     @SerializedName("description")
     val description: String?,
 
+    @SerializedName("year")
+    val year: String,
+
     @SerializedName("poster")
     val image: PosterJson?
 

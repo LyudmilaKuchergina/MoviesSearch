@@ -5,6 +5,7 @@ data class Movies(
     val url:String,
     val title:String,
     val description:String,
+    val year:String,
     var title_pressed: Boolean = false,
     var isFavorite: Boolean = false
 )

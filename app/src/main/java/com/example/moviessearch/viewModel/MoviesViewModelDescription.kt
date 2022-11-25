@@ -4,12 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviessearch.Movies
 import com.example.moviessearch.Repository
+import com.example.moviessearch.db.MoviesEntity
 
 class MoviesViewModelDescription: ViewModel() {
 
-    val descriptionLiveData = MutableLiveData<Movies>()
+    val descriptionLiveData = MutableLiveData<MoviesEntity>()
 
     fun getMovie(id: Int) {
-        descriptionLiveData.postValue(Repository.getStoredMovie(id))
+        Repository.getStoredMovie(id, onReady = {
+            descriptionLiveData.postValue(it)
+        })
     }
 }

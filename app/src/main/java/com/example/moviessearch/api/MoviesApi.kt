@@ -15,6 +15,6 @@ interface MoviesApi {
         @Query("search")  search: String,
         @Query("field")  field: String = "year",
         @Query("token")  token: String = TOKEN,
-        @Query("limit")  limit: String = "20",
+        @Query("limit")  limit: String = "60",
     ): Call<MoviesList>
 }
