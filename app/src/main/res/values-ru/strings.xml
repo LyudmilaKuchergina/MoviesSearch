@@ -15,4 +15,6 @@
     <string name="notify_delete">Фильм удален из избранных.</string>
     <string name="notify_add">Фильм добавлен в избранные.</string>
     <string name="question_invite">Привет. Не желаешь посмотреть фильм?</string>
+    <string name="question_net">Ошибка сети. Повторить загрузку фильмов?</string>
+    <string name="retry">Повторить</string>
 </resources>

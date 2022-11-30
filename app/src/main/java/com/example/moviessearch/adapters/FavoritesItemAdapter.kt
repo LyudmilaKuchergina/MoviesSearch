@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearch.Movies
 import com.example.moviessearch.R
-import com.example.moviessearch.Repository
 import com.example.moviessearch.viewHolders.FavoritesItemViewHolder
 
 class FavoritesItemAdapter(

@@ -16,7 +16,7 @@ class MoviesListViewModel : ViewModel(), Repository.NotifyListener {
         getValues()
     }
 
-    private fun getValues() {
+    fun getValues() {
         progressLiveData.postValue(true)
         Repository.getMovies(year = "2015", onReady = {
             moviesLiveData.postValue(it)

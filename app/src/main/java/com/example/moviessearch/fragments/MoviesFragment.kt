@@ -51,9 +51,9 @@ class MoviesFragment : Fragment(),
             setProgressVisibility(it)
         })
         viewModel.errorLiveData.observe(viewLifecycleOwner, {
-            val snackbar = Snackbar.make(view, "Ошибка загрузки фильмов из сети.", Snackbar.LENGTH_INDEFINITE) //$it", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Повторить загрузку фильмов?", View.OnClickListener() {
-
+            val snackbar = Snackbar.make(view, resources.getString(R.string.question_net), Snackbar.LENGTH_INDEFINITE)
+                .setAction(resources.getString(R.string.retry), View.OnClickListener() {
+                    viewModel.getValues()
                 })
             snackbar.show()
         })

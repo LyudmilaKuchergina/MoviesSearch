@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearch.R
-import com.example.moviessearch.Repository
 import com.example.moviessearch.adapters.FavoritesItemAdapter
 import com.example.moviessearch.viewModel.FavoritesListViewModel
 import com.google.android.material.snackbar.Snackbar

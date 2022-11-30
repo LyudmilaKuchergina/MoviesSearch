@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.moviessearch.R
-import com.example.moviessearch.Repository
 import com.example.moviessearch.viewModel.MoviesViewModelDescription
 
 

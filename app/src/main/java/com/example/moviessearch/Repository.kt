@@ -1,11 +1,9 @@
 package com.example.moviessearch
 
 import android.util.Log
-import android.view.View
 import com.example.moviessearch.api.MoviesApi
 import com.example.moviessearch.db.Db
 import com.example.moviessearch.db.MoviesEntity
-import com.google.android.material.snackbar.Snackbar
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -27,9 +25,9 @@ object Repository {
         return movies?.mapIndexed { index, it ->
             Movies(
                 id = it.id,
-                url = it.url.orEmpty(),
-                title = it.title.orEmpty(),
-                description = it.description.orEmpty(),
+                url = it.url,
+                title = it.title,
+                description = it.description,
                 year = it.year,
                 title_pressed = it.title_pressed,
                 isFavorite = it.isFavorite
@@ -41,9 +39,9 @@ object Repository {
         return movies.mapIndexed { index, it ->
             MoviesEntity(
                 id = it.id,
-                url = it.url.orEmpty(),
-                title = it.title.orEmpty(),
-                description = it.description.orEmpty(),
+                url = it.url,
+                title = it.title,
+                description = it.description,
                 year = it.year,
                 title_pressed = it.title_pressed,
                 isFavorite = it.isFavorite
@@ -53,6 +51,7 @@ object Repository {
 
     private fun saveToDb(movies: List<Movies>) {
         Thread {
+            Db.getInstance().getMoviesDao().delete()
             Db.getInstance().getMoviesDao().insert(mapToDb(movies))
         }.start()
     }
@@ -79,7 +78,7 @@ object Repository {
 
     fun getMovies(year: String, onReady: (List<Movies>?) -> Unit, onError: (String) -> Unit) {
         Thread {
-            val storedMovies = emptyList<Movies>()  //getFromDbByYear(year)
+            val storedMovies = getFromDbByYear(year)
             if (storedMovies?.isEmpty() == true) {
                 loadMovies(year, onReady, onError)
             } else {
