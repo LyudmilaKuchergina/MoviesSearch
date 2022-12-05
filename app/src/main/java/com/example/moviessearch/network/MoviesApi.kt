@@ -1,6 +1,5 @@
-package com.example.moviessearch.api
+package com.example.moviessearch.network
 
-import com.example.moviessearch.MoviesList
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

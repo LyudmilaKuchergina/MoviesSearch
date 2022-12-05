@@ -4,22 +4,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviessearch.Movies
 import com.example.moviessearch.Repository
+import com.example.moviessearch.RepositoryProvider
 
 class FavoritesListViewModel : ViewModel(), Repository.NotifyListener {
+
+    private val repository = RepositoryProvider.repository
 
     val favoritesLiveData = MutableLiveData<List<Movies>>()
 
     init {
-        Repository.addNotifyListener(this)
+        repository.addNotifyListener(this)
         showFavorites()
     }
 
     private fun showFavorites() {
-        Repository.getFavorites(onReady = { movies -> favoritesLiveData.postValue(movies) })
+        repository.getFavorites(onReady = { movies -> favoritesLiveData.postValue(movies) })
     }
 
     fun delFavorite(id: Int) {
-        Repository.delFavorite(id)
+        repository.delFavorite(id)
     }
 
     override fun notify(num: Int) {
@@ -27,7 +30,7 @@ class FavoritesListViewModel : ViewModel(), Repository.NotifyListener {
     }
 
     override fun onCleared() {
-        Repository.deleteNotifyListener(this)
+        repository.deleteNotifyListener(this)
         super.onCleared()
     }
 }

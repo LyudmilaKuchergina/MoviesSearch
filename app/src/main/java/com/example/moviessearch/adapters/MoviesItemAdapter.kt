@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearch.Movies
 import com.example.moviessearch.R
+import com.example.moviessearch.Repository
 import com.example.moviessearch.viewHolders.MoviesItemViewHolder
 
 
 class MoviesItemAdapter(
+    private val repository: Repository,
     private val listener: MovieClickListener
 ) : RecyclerView.Adapter<MoviesItemViewHolder>() {
 
@@ -18,7 +20,8 @@ class MoviesItemAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesItemViewHolder {
         return MoviesItemViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_layout, parent, false)
+                .inflate(R.layout.item_layout, parent, false),
+            repository
         )
     }
 

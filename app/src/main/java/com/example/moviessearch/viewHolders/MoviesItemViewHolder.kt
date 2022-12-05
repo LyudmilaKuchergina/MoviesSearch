@@ -12,7 +12,8 @@ import com.example.moviessearch.Repository
 import com.example.moviessearch.adapters.MoviesItemAdapter
 
 
-class MoviesItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class MoviesItemViewHolder(itemView: View, private val repository: Repository) : RecyclerView.ViewHolder(itemView) {
+
     private val tvTitleItem: TextView = itemView.findViewById(R.id.tvTitleItem)
     private val imMovieItem: ImageView = itemView.findViewById(R.id.imMovieItem)
     private val imFavoriteItem: ImageView = itemView.findViewById(R.id.imFavorite)
@@ -35,15 +36,15 @@ class MoviesItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             imFavoriteItem.setImageResource(R.drawable.ic_favorite)
 
         imMovieItem.setOnClickListener {
-            Repository.setPressed(adapterPosition)
+            repository.setPressed(adapterPosition)
             tvTitleItem.setTextColor(ContextCompat.getColor(itemView.context, R.color.pink_2))
             listener.onMovieClick(item, adapterPosition)
         }
         imFavoriteItem.setOnClickListener {
             if (item.isFavorite) {
-                Repository.delFavorite(item.id)
+                repository.delFavorite(item.id)
             } else {
-                Repository.addFavorite(item.id)
+                repository.addFavorite(item.id)
             }
             listener.onFavoriteClick(adapterPosition, itemView)
         }

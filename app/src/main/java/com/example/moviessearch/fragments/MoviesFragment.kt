@@ -22,7 +22,7 @@ class MoviesFragment : Fragment(),
 
     lateinit var viewModel: MoviesListViewModel
 
-    private val adapter = MoviesItemAdapter(this)
+    private val adapter: MoviesItemAdapter by lazy { MoviesItemAdapter(viewModel.repository, this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,10 +40,11 @@ class MoviesFragment : Fragment(),
         rcView.layoutManager =
             GridLayoutManager(context, resources.getInteger(R.integer.list_columns))
 
+        viewModel = ViewModelProvider(this).get(MoviesListViewModel::class.java)
+
         rcView.adapter = adapter
         rcView.itemAnimator = DefaultItemAnimator()
 
-        viewModel = ViewModelProvider(this).get(MoviesListViewModel::class.java)
         viewModel.moviesLiveData.observe(viewLifecycleOwner, {
             adapter.refreshList(it)
         })
